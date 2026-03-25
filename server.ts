@@ -116,4 +116,4 @@ app.post('/accommodation/book', (req, res) => {
 
 const PORT = 3000;
 
-app.listen(PORT, () => `Express server with Vite integration now running on ${PORT}...`);
+app.listen(PORT, () => `Express server  ${PORT}...`);
