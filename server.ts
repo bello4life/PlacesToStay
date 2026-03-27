@@ -1,15 +1,10 @@
 import express from 'express';
 import database from 'better-sqlite3';
+import ViteExpress from 'vite-express';
 
 const app = express();
 app.use(express.json());
 const db = new database("placestostay.db");
-
-
-app.get('/', (req,res)=> {
-    res.send('Hello World from Express!');
-
-});
 
 
 
@@ -116,4 +111,6 @@ app.post('/accommodation/book', (req, res) => {
 
 const PORT = 3000;
 
-app.listen(PORT, () => `Express server  ${PORT}...`);
+ViteExpress.listen(app, PORT, () => {
+    console.log(`Express server with Vite integration now running on ${PORT}...`)
+});

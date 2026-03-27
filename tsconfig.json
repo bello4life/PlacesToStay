@@ -5,7 +5,9 @@
         "noEmit" : true,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "jsx": "preserve"
+        "jsx": "preserve",
+        "moduleResolution": "nodenext",
+        "module": "nodenext"
     },
-    "files": ["server.ts"]
+    "files": ["src/main.tsx"]
 }
