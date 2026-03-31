@@ -57,6 +57,10 @@ app.post('/accommodation/book', (req, res) => {
             return res.status(403).json({ error: "Invalid API ID" });
         }
 
+        if (!body.accID || !body.date || !body.people) {
+        return res.status(400).json({ error: "Missing required fields: accID, date, and people are all required" });
+        }
+
     
         const checkStmt = db.prepare(`
             SELECT availability FROM acc_dates
