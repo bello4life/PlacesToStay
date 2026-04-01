@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SearchComponent from "./SearchComponent";
 import ResultsComponent from "./ResultsComponent";
+import MapComponent from "./MapComponent";
 
 export interface Accommodation {
     ID: number;
@@ -9,6 +10,7 @@ export interface Accommodation {
     location: string;
     latitude: number;
     longitude: number;
+    description: String
 }
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
             <SearchComponent onResults={setResults} />
             {bookingMessage && <p>{bookingMessage}</p>}
             <ResultsComponent results={results} onBookingMessage={setBookingMessage} />
+            <MapComponent results={results} />
         </div>
     );
 }
