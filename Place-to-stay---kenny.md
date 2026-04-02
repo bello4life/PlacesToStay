@@ -178,3 +178,29 @@ bindPopup() to show the name and type when clicked. Before adding new
 markers each time the results update, I will need to clear any existing
 markers from the map first, so old results don\'t stay on the map when
 the user does a new search.
+
+# Part E -- Task 8: Login and sessions
+
+For this task I need to think about two things, how to keep track of
+whether a user is logged in on the server, and how to reflect that on
+the front end without losing the login status on page reload.
+
+To handle sessions, I will use express-session with
+express-session-better-sqlite3 to store session data in SQLite, as
+covered in week 8. I will set up the session middleware using
+app.use(expressSession({\...})) so it runs on every request. I will also
+create the necessary type declarations for TypeScript as covered in week
+8.
+
+On the server side I will create three routes, a POST /login route that
+checks the username and password against the acc_users table, a GET
+/login route that returns the currently logged in user, and a POST
+/logout route that destroys the session. If the login details are
+incorrect, I will return a 401 status code.
+
+For the front end I will add a login form to App. When the component
+first loads, I will use useEffect to hit the GET /login route and check
+if a user is already logged in. This is what handles the page reload
+case, the front end checks the server on load and updates accordingly. I
+will store the username in state and use it to decide whether to show
+the login form or the \"Logged in as\" message.
