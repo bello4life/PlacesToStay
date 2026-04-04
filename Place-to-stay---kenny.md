@@ -179,7 +179,9 @@ markers each time the results update, I will need to clear any existing
 markers from the map first, so old results don\'t stay on the map when
 the user does a new search.
 
-# Part E -- Task 8: Login and sessions
+# Part E -- Task 8 and 9: Login, sessions, Middleware
+
+## 8.Login and sessions
 
 For this task I need to think about two things, how to keep track of
 whether a user is logged in on the server, and how to reflect that on
@@ -204,3 +206,23 @@ if a user is already logged in. This is what handles the page reload
 case, the front end checks the server on load and updates accordingly. I
 will store the username in state and use it to decide whether to show
 the login form or the \"Logged in as\" message.
+
+# 9.Middleware
+
+For this task I need to restrict the booking route so that only logged
+in users can make a booking. On the front end I also need to handle the
+case where a user tries to book without being logged in and show them a
+friendly message.
+
+On the server side I will add middleware before the booking route,
+following the same pattern covered in week 8. The middleware checks all
+POST requests, if req.session.username exists, it calls next() to allow
+the request through. If not, it returns a 401 status code. I will place
+this middleware after the login and logout routes so those remain
+accessible without being logged in, otherwise the login POST route
+itself would be blocked.
+
+On the front end I already handle different status codes in
+ResultsComponent from Task 6. I just need to add a check for the 401
+status code and display a message telling the user they need to log in
+before they can book.
