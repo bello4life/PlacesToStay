@@ -32,22 +32,40 @@ app.get('/login', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body as { username: string; password: string };
-    const stmt = db.prepare('SELECT * FROM acc_users WHERE username = ? AND password = ?');
-    const user = stmt.get(username, password) as { ID: number; username: string } | undefined;
-    if (user) {
-        req.session.username = user.username;
-        res.json({ username: user.username });
-    } else {
-        res.status(401).json({ error: 'Incorrect username or password' });
+    try {
+        const { username, password } = req.body;
+        const stmt = db.prepare('SELECT * FROM acc_users WHERE username = ? AND password = ?');
+        const user = stmt.get(username, password);
+        if (user) {
+            req.session.username = username;
+            res.json({ username: username });
+        } else {
+            res.status(401).json({ error: 'Incorrect username or password' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
     }
 });
+
 
 
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         res.json({ loggedout: true });
     });
+});
+
+
+app.use((req, res, next) => {
+    if(["POST", "DELETE"].indexOf(req.method) == -1) {
+        next();
+    } else {
+        if(req.session.username) {
+            next();
+        } else {
+            res.status(401).json({ error: "You must be logged in to do this" });
+        }
+    }
 });
 
 

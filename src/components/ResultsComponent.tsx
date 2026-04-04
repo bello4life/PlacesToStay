@@ -26,6 +26,8 @@ export default function ResultsComponent({ results, onBookingMessage }: ResultsC
                 response.json().then(data => {
                     onBookingMessage(`Booking confirmed! Your booking ID is ${data.id}.`);
                 });
+            } else if(response.status === 401) {
+                onBookingMessage("You need to be logged in to make a booking.");
             } else if(response.status === 400) {
                 onBookingMessage("Sorry, we could not complete your booking. Please check your details and try again.");
             } else if(response.status === 403) {
@@ -43,6 +45,7 @@ export default function ResultsComponent({ results, onBookingMessage }: ResultsC
             <button onClick={() => bookAccommodation(acc.ID)}>Book</button>
         </li>
     );
+
     
 
     return (
