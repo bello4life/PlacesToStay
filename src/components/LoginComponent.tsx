@@ -6,24 +6,29 @@ interface LoginComponentProps {
     onLogout: () => void;
 }
 
+
 export default function LoginComponent({ username, onLogin, onLogout }: LoginComponentProps) {
 
     function login() {
         const user = (document.getElementById('username') as HTMLInputElement).value;
+        
         const pass = (document.getElementById('password') as HTMLInputElement).value;
         fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: user, password: pass })
         })
+
         .then(response => {
             if (response.status === 200) {
                 response.json().then(data => onLogin(data.username));
             } else {
                 alert('Incorrect username or password. Please try again.');
+
             }
         });
     }
+
 
     function logout() {
         fetch('/logout', { method: 'POST' })
