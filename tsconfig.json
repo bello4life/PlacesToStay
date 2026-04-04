@@ -7,7 +7,12 @@
         "skipLibCheck": true,
         "jsx": "preserve",
         "moduleResolution": "nodenext",
-        "module": "nodenext"
+        "module": "nodenext",
+        "paths": {
+            "*": [
+                "./types/*"
+            ]
+        }
     },
-    "files": ["src/main.tsx"]
+    "files": ["src/main.tsx",  "server.ts", "types/extend-session.ts"]
 }
