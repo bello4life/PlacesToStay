@@ -226,3 +226,28 @@ On the front end I already handle different status codes in
 ResultsComponent from Task 6. I just need to add a check for the 401
 status code and display a message telling the user they need to log in
 before they can book.
+
+# Part G -- Task 10: Availability and Date Checking
+
+For this task I want to make the booking route more robust by checking
+that there is availability for the requested number of people on the
+specified date, and that the date is not in the past.
+
+Looking at my server, I already added availability checking back in Part
+A when I built the booking route, I checked the acc_dates table to
+confirm availability exists and that the number of people does not
+exceed it. So, the main thing to add here is the **date in the past**
+check. I will compare the booking date against today\'s date and return
+a 400 status code with a specific error message in the JSON if the date
+has already passed.
+
+The brief also says the specific error should be included within the
+JSON message sent back, so rather than just sending a generic error I
+will make sure each error case returns a descriptive message so the
+front end can tell the user exactly what went wrong.
+
+On the front end I will update the booking function in ResultsComponent
+to read the specific error message from the JSON response and display it
+to the user, rather than showing a generic message for all 400 errors.
+This way the user knows whether the booking failed because there was no
+availability, the date was in the past, or something else.
