@@ -227,7 +227,9 @@ ResultsComponent from Task 6. I just need to add a check for the 401
 status code and display a message telling the user they need to log in
 before they can book.
 
-# Part G -- Task 10: Availability and Date Checking
+# Part G \-- Task 10 &11: Availability, Date Checking and Booking Form
+
+## 10. Availability And Date Checking
 
 For this task I want to make the booking route more robust by checking
 that there is availability for the requested number of people on the
@@ -251,3 +253,24 @@ to read the specific error message from the JSON response and display it
 to the user, rather than showing a generic message for all 400 errors.
 This way the user knows whether the booking failed because there was no
 availability, the date was in the past, or something else.
+
+## 11. Booking Form per Result
+
+For this task the idea is to let the user enter a date and number of
+people for each booking, rather than using the hard coded values from
+earlier tasks.
+
+Since each result in ResultsComponent already has a Book button, I will
+add a date input and a number input next to each button. I will use an
+HTML date picker (type=\"date\") and a number input with a minimum of 1
+for the people count. Each result needs its own inputs so the user can
+pick different dates and people counts per accommodation.
+
+Before sending the fetch, I will convert the date from the YYYY-MM-DD
+format the date picker returns into the YYMMDD format the database
+expects. I also need to make sure the date is filled in before sending,
+otherwise the server will return a 400 error for missing fields.
+
+All the error handling from Task 10 will still apply here since the
+booking function already reads the specific error from the JSON
+response.
