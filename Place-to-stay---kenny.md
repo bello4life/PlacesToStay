@@ -25,6 +25,25 @@
 [Part D -- Task 7: Adding a Map
 [5](#part-d-task-7-adding-a-map)](#part-d-task-7-adding-a-map)
 
+[Part E -- Task 8 and 9: Login, sessions, Middleware
+[6](#part-e-task-8-and-9-login-sessions-middleware)](#part-e-task-8-and-9-login-sessions-middleware)
+
+[8.Login and sessions [6](#login-and-sessions)](#login-and-sessions)
+
+[9.Middleware [6](#middleware)](#middleware)
+
+[Part G \-- Task 10 &11: Availability, Date Checking and Booking Form
+[7](#part-g----task-10-11-availability-date-checking-and-booking-form)](#part-g----task-10-11-availability-date-checking-and-booking-form)
+
+[10. Availability And Date Checking
+[7](#availability-and-date-checking)](#availability-and-date-checking)
+
+[11. Booking Form per Result
+[7](#booking-form-per-result)](#booking-form-per-result)
+
+[Part H -- Extensive Use of Middleware, DAOs, Controllers and Routers
+[8](#part-h-middleware-daos-controllers-and-routers)](#part-h-middleware-daos-controllers-and-routers)
+
 # Part A -- REST API
 
 ## 1. Retrieve accommodation by location
@@ -274,3 +293,32 @@ otherwise the server will return a 400 error for missing fields.
 All the error handling from Task 10 will still apply here since the
 booking function already reads the specific error from the JSON
 response.
+
+# Part H --Middleware, DAOs, Controllers and Routers
+
+To improve the structure of my Express server I will refactor it to use
+the MVC pattern covered in week 9. Right now everything sits inside
+server.ts which works but is not very modular or reusable.
+
+The first thing I will do is move the database connection into its own
+module db.ts so it can be shared across the server without being
+initialised multiple times. Then I will create a dao folder containing
+classes for each table I need to interact with, including
+AccommodationDao, UserDao, and BookingDao. Each DAO handles all the SQL
+for its table, keeping the messy queries in one place.
+
+On top of the DAOs I will add a controllers folder with controller
+classes that sit between the routes and the DAOs. The controllers call
+the DAO methods and format the results for the client, handling things
+like HTTP status codes and JSON responses.
+
+For the routes I will split them up into separate routers inside a
+routes folder. One router for accommodation, one for authentication, and
+one for bookings. Each router imports its controller and calls the
+appropriate method for each route, using bind() as covered in week 9 to
+preserve the this context.
+
+I will also move the login middleware into its own middleware folder so
+it can be reused and imported into server.ts cleanly. After all this
+server.ts will be much shorter and just handle wiring everything
+together.
