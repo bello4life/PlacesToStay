@@ -14,5 +14,5 @@
             ]
         }
     },
-    "files": ["src/main.tsx",  "server.ts", "types/extend-session.ts"]
+    "files": ["src/main.tsx",  "server.ts", "types/extend-session.ts", "types/css.d.ts"]
 }

@@ -108,16 +108,12 @@ app.post('/accommodation/book', (req, res) => {
     try {
 
         const body = req.body as {
-            apiID: string;
             accID: number;
             date: number;
             userID: number;
             people: number;
         };
 
-        if (body.apiID !== "0x574144") {
-            return res.status(403).json({ error: "Invalid API ID" });
-        }
 
         if (!body.accID || !body.date || !body.people) {
         return res.status(400).json({ error: "Missing required fields: accID, date, and people are all required" });
