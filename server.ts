@@ -3,10 +3,11 @@ import database from 'better-sqlite3';
 import ViteExpress from 'vite-express';
 import expressSession from 'express-session';
 import betterSqlite3Session from 'express-session-better-sqlite3';
+import db from './db';
 
 const app = express();
 app.use(express.json());
-const db = new database("placestostay.db");
+
 
 const sessDb = new database('session.db');
 const SqliteStore = betterSqlite3Session(expressSession, sessDb);
