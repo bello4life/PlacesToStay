@@ -14,10 +14,10 @@ export default class LoginController {
         res.json({ username: req.session.username || null });
     }
 
-    login(req: Request, res: Response) {
+    async login(req: Request, res: Response) {
         try {
             const { username, password } = req.body;
-            const user = this.dao.findByUsernameAndPassword(username, password);
+            const user = await this.dao.findByUsernameAndPassword(username, password);
             if (user) {
                 req.session.username = user.username;
                 res.json({ username: user.username });
@@ -25,6 +25,7 @@ export default class LoginController {
                 res.status(401).json({ error: 'Incorrect username or password' });
             }
         } catch (e) {
+            console.log(e);
             res.status(500).json({ error: 'Server error' });
         }
     }

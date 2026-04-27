@@ -28,16 +28,15 @@ app.use(expressSession({
     }
 }));
 
-// Login routes must come before the login middleware, otherwise login itself would be blocked
+
 app.use('/', loginRouter);
 
-// Accommodation search routes - GET, so not blocked by login middleware anyway
+
 app.use('/accommodation', accommodationRouter);
 
-// Login middleware to protect POST and DELETE routes
+
 app.use(loginMiddleware);
 
-// Booking router - POST only, protected by the middleware above
 app.use('/accommodation', bookingRouter);
 
 const PORT = 3000;

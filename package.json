@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.6",
     "@types/express-session": "^1.18.2",
@@ -7,6 +8,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.2.0",
+    "bcrypt": "^6.0.0",
     "better-sqlite3": "^12.8.0",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
@@ -17,7 +19,8 @@
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vite-express": "^0.22.1"
+    "vite-express": "^0.22.1",
+    "xss": "^1.0.15"
   },
   "scripts": {
     "dev": "tsc && tsx server.ts",

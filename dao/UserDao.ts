@@ -1,4 +1,5 @@
 import BetterSqlite3 from 'better-sqlite3';
+import bcrypt from 'bcrypt';
 
 interface User {
     ID: number;
@@ -14,9 +15,12 @@ export default class UserDao {
         this.db = db;
     }
 
-    findByUsernameAndPassword(username: string, password: string): User | null {
-        const stmt = this.db.prepare('SELECT * FROM acc_users WHERE username = ? AND password = ?');
-        const row = stmt.get(username, password) as User | undefined;
-        return row || null;
+    async findByUsernameAndPassword(username: string, password: string): Promise<User | null> {
+        const stmt = this.db.prepare('SELECT * FROM acc_users WHERE username = ?');
+        const row = stmt.get(username) as User | undefined;
+        if (!row) return null;
+
+        const match = await bcrypt.compare(password, row.password);
+        return match ? row : null;
     }
 }
