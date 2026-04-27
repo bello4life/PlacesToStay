@@ -349,10 +349,11 @@ approach covered in week 10 for preventing injection.
 For password security, my current login checks the plain text password
 directly against the database. I will use the bcrypt module from week 10
 to hash all passwords, then use bcrypt.compare() in the login route to
-check the entered password against the hash. I will include the login
-credentials in the report so the hashed passwords can still be tested.
+check the entered password against the hash.
 
 For XSS, any user input coming back from the database in responses could
 contain script tags. I will use the xss module from week 10 to sanitise
 the data before sending it back, so any injected tags get encoded and
 cannot run in the browser.
+
+Username and password have been included in the read.md
