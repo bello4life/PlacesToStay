@@ -322,3 +322,23 @@ I will also move the login middleware into its own middleware folder so
 it can be reused and imported into server.ts cleanly. After all this
 server.ts will be much shorter and just handle wiring everything
 together.
+
+# **Security**
+
+For the security of my server, I want to make sure it is protected
+against the main attacks covered in week 10.
+
+For SQL injection, my code already uses prepared statements with
+placeholders everywhere I interact with the database, which is the
+approach covered in week 10 for preventing injection.
+
+For password security, my current login checks the plain text password
+directly against the database. I will use the bcrypt module from week 10
+to hash all passwords, then use bcrypt.compare() in the login route to
+check the entered password against the hash. I will include the login
+credentials in the report so the hashed passwords can still be tested.
+
+For XSS, any user input coming back from the database in responses could
+contain script tags. I will use the xss module from week 10 to sanitise
+the data before sending it back, so any injected tags get encoded and
+cannot run in the browser.
