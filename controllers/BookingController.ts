@@ -18,8 +18,14 @@ export default class BookingController {
                 people: number;
             };
 
-            if (!body.accID || !body.date || !body.people) {
+            if (!body.accID || !body.date || !body.people === undefined) {
                 return res.status(400).json({ error: "Missing required fields: accID, date, and people are all required" });
+            }
+
+            if (!Number.isInteger(body.people) || body.people <= 0) {
+                return res.status(400).json({
+                    error: "Number of people must be greater than 0" 
+                });
             }
 
             const today = new Date();
