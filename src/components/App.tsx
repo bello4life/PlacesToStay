@@ -11,19 +11,25 @@ export interface Accommodation {
     location: string;
     latitude: number;
     longitude: number;
-    description: String
+    description: string;
 }
 
 export default function App() {
     const [results, setResults] = useState<Accommodation[]>([]);
     const [bookingMessage, setBookingMessage] = useState("");
     const [username, setUsername] = useState<string | null>(null);
+    const [searched, setSearched] = useState(false);
 
     useEffect(() => {
         fetch('/login')
             .then(response => response.json())
             .then(data => setUsername(data.username));
     }, []);
+
+    function handleResults(newResults: Accommodation[]) {
+        setResults(newResults);
+        setSearched(true);
+    }
 
     return (
         <div>
@@ -33,9 +39,13 @@ export default function App() {
                 onLogin={setUsername}
                 onLogout={() => setUsername(null)}
             />
-            <SearchComponent onResults={setResults} />
+            <SearchComponent onResults={handleResults} />
             {bookingMessage && <p>{bookingMessage}</p>}
-            <ResultsComponent results={results} onBookingMessage={setBookingMessage} />
+            {searched && results.length === 0 ? (
+                <p>No accommodation found for your search. Please try a different location or type.</p>
+            ) : (
+                <ResultsComponent results={results} onBookingMessage={setBookingMessage} />
+            )}
             <MapComponent results={results} />
         </div>
     );
