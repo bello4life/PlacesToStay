@@ -1,3 +1,17 @@
+**COM518 --- Web Application Development**
+
+**Assignment 1: Places To Stay**
+
+**Name:** Bello Kenny
+
+**Student Number:** Q102127209
+
+**Submission Date:** 27 April 2026
+
+**Lecturer:** Nick Whitelegg
+
+**University:** Solent University, Southampton
+
 # Contents {#contents .TOC-Heading}
 
 [Part A -- REST API [3](#part-a-rest-api)](#part-a-rest-api)
