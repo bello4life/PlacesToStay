@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import ViteExpress from 'vite-express';
 import expressSession from 'express-session';
@@ -16,7 +17,7 @@ const SqliteStore = betterSqlite3Session(expressSession, sessDb);
 
 app.use(expressSession({
     store: new SqliteStore(),
-    secret: 'placestostay2526',
+    secret: process.env.SESSION_SECRET as string,
     resave: true,
     saveUninitialized: false,
     rolling: true,

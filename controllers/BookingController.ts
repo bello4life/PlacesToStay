@@ -14,11 +14,10 @@ export default class BookingController {
             const body = req.body as {
                 accID: number;
                 date: number;
-                userID: number;
                 people: number;
             };
 
-            if (!body.accID || !body.date || !body.people === undefined) {
+            if (!body.accID || !body.date || body.people === undefined) {
                 return res.status(400).json({ error: "Missing required fields: accID, date, and people are all required" });
             }
 
@@ -48,10 +47,18 @@ export default class BookingController {
                 return res.status(400).json({ error: "Not enough availability" });
             }
 
-            const bookingId = this.dao.createBooking(body.accID, body.date, body.userID, body.people);
+            const userID = req.session.userID;
+            if (!userID) {
+                return res.status(401).json({ error: "You must be logged in to do this" });
+            }
+
+            const bookingId = this.dao.createBooking(body.accID, body.date, userID, body.people);
             res.json({ id: bookingId });
 
         } catch (e) {
+            if (e instanceof Error && e.message === "NO_AVAILABILITY") {
+                return res.status(400).json({ error: "Not enough availability" });
+            }
             console.log(e);
             res.status(500).json({ error: "Server error" });
         }

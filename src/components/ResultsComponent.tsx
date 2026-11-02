@@ -28,7 +28,6 @@ export default function ResultsComponent({ results, onBookingMessage }: ResultsC
             body: JSON.stringify({
                 accID: accID,
                 date: yymmdd,
-                userID: 1,
                 people: people
             })
         })

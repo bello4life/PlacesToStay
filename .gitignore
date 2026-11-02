@@ -1,3 +1,6 @@
 ~$*
 *.tmp
 node_modules
+.env
+session.db
+placestostay.db.backup

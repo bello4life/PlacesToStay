@@ -20,15 +20,21 @@ export default class BookingDao {
             INSERT INTO acc_bookings(accID, thedate, userID, npeople)
             VALUES(?,?,?,?)
         `);
-        const info = insertStmt.run(accID, date, userID, people);
-
         const updateStmt = this.db.prepare(`
             UPDATE acc_dates
             SET availability = availability - ?
-            WHERE accID = ? AND thedate = ?
+            WHERE accID = ? AND thedate = ? AND availability >= ?
         `);
-        updateStmt.run(people, accID, date);
 
-        return info.lastInsertRowid as number;
+        // Both writes succeed together or neither is saved.
+        const book = this.db.transaction(() => {
+            const update = updateStmt.run(people, accID, date, people);
+            if (update.changes === 0) {
+                throw new Error("NO_AVAILABILITY");
+            }
+            return insertStmt.run(accID, date, userID, people).lastInsertRowid as number;
+        });
+
+        return book();
     }
 }

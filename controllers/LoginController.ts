@@ -20,6 +20,7 @@ export default class LoginController {
             const user = await this.dao.findByUsernameAndPassword(username, password);
             if (user) {
                 req.session.username = user.username;
+                req.session.userID = user.ID;
                 res.json({ username: user.username });
             } else {
                 res.status(401).json({ error: 'Incorrect username or password' });
