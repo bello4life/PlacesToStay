@@ -1,47 +1,46 @@
-import 'dotenv/config';
-import express from 'express';
-import ViteExpress from 'vite-express';
-import expressSession from 'express-session';
-import betterSqlite3Session from 'express-session-better-sqlite3';
-import Database from 'better-sqlite3';
-import loginRouter from './routes/loginRouter';
-import accommodationRouter from './routes/accommodationRouter';
-import bookingRouter from './routes/bookingRouter';
-import loginMiddleware from './middleware/loginMiddleware';
+import "dotenv/config";
+import express from "express";
+import ViteExpress from "vite-express";
+import expressSession from "express-session";
+import betterSqlite3Session from "express-session-better-sqlite3";
+import Database from "better-sqlite3";
+import loginRouter from "./routes/loginRouter";
+import accommodationRouter from "./routes/accommodationRouter";
+import bookingRouter from "./routes/bookingRouter";
+import loginMiddleware from "./middleware/loginMiddleware";
 
 const app = express();
 app.use(express.json());
 
-const sessDb = new Database('session.db');
+const sessDb = new Database("session.db");
 const SqliteStore = betterSqlite3Session(expressSession, sessDb);
 
-app.use(expressSession({
+app.use(
+  expressSession({
     store: new SqliteStore(),
     secret: process.env.SESSION_SECRET as string,
     resave: true,
     saveUninitialized: false,
     rolling: true,
-    unset: 'destroy',
+    unset: "destroy",
     proxy: true,
     cookie: {
-        maxAge: 600000,
-        httpOnly: false
-    }
-}));
+      maxAge: 600000,
+      httpOnly: false,
+    },
+  }),
+);
 
+app.use("/", loginRouter);
 
-app.use('/', loginRouter);
-
-
-app.use('/accommodation', accommodationRouter);
-
+app.use("/accommodation", accommodationRouter);
 
 app.use(loginMiddleware);
 
-app.use('/accommodation', bookingRouter);
+app.use("/accommodation", bookingRouter);
 
 const PORT = 3000;
 
 ViteExpress.listen(app, PORT, () => {
-    console.log(`Express server with Vite integration now running on ${PORT}...`);
+  console.log(`Express server with Vite integration now running on ${PORT}...`);
 });

@@ -1,4 +1,5 @@
 # PlacesToStay
+
 COM518-PlacesToStay
 
 1. Username: tim, Password: tim123

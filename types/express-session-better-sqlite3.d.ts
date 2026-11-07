@@ -1,1 +1,1 @@
-declare module 'express-session-better-sqlite3';
+declare module "express-session-better-sqlite3";

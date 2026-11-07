@@ -21,9 +21,9 @@ export default function App() {
     const [searched, setSearched] = useState(false);
 
     useEffect(() => {
-        fetch('/login')
-            .then(response => response.json())
-            .then(data => setUsername(data.username));
+        fetch("/login")
+            .then((response) => response.json())
+            .then((data) => setUsername(data.username));
     }, []);
 
     function handleResults(newResults: Accommodation[]) {
@@ -32,21 +32,39 @@ export default function App() {
     }
 
     return (
-        <div>
-            <h1>Places To Stay</h1>
-            <LoginComponent
-                username={username}
-                onLogin={setUsername}
-                onLogout={() => setUsername(null)}
-            />
-            <SearchComponent onResults={handleResults} />
-            {bookingMessage && <p>{bookingMessage}</p>}
-            {searched && results.length === 0 ? (
-                <p>No accommodation found for your search. Please try a different location or type.</p>
-            ) : (
-                <ResultsComponent results={results} onBookingMessage={setBookingMessage} />
-            )}
-            <MapComponent results={results} />
+        <div className="app">
+            <header className="topbar">
+                <h1>Places To Stay</h1>
+                <LoginComponent
+                    username={username}
+                    onLogin={setUsername}
+                    onLogout={() => setUsername(null)}
+                />
+            </header>
+
+            <div className="searchbar">
+                <SearchComponent onResults={handleResults} />
+            </div>
+
+            <main className="content">
+                <section className="results-panel">
+                    {bookingMessage && <p>{bookingMessage}</p>}
+                    {searched && results.length === 0 ? (
+                        <p>
+                            No accommodation found for your search. Please try a
+                            different location or type.
+                        </p>
+                    ) : (
+                        <ResultsComponent
+                            results={results}
+                            onBookingMessage={setBookingMessage}
+                        />
+                    )}
+                </section>
+                <section className="map-panel">
+                    <MapComponent results={results} />
+                </section>
+            </main>
         </div>
     );
 }

@@ -151,7 +151,7 @@ message and display it inline on the page. I think this is cleaner than
 a browser alert as it keeps the user on the page without any
 interruption.
 
-**\**
+*_\*_
 
 # Part C -- Task 6: Error Checking
 
@@ -224,8 +224,7 @@ To handle sessions, I will use express-session with
 express-session-better-sqlite3 to store session data in SQLite, as
 covered in week 8. I will set up the session middleware using
 app.use(expressSession({\...})) so it runs on every request. I will also
-create the necessary type declarations for TypeScript as covered in week
-8.
+create the necessary type declarations for TypeScript as covered in week 8.
 
 On the server side I will create three routes, a POST /login route that
 checks the username and password against the acc_users table, a GET

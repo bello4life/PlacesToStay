@@ -1,24 +1,34 @@
 {
-    "compilerOptions" : {
-        "target": "esnext",
-        "strict" : true,
-        "noEmit" : true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "jsx": "preserve",
-        "moduleResolution": "nodenext",
-        "module": "nodenext",
-        "paths": {
-            "*": [
-                "./types/*"
-            ]
-        }
-    },
-    "files": ["src/main.tsx",  "server.ts", "types/extend-session.ts", 
-    "types/css.d.ts", "db.ts", "dao/AccommodationDao.ts", "dao/UserDao.ts", 
-    "dao/BookingDao.ts", "controllers/AccommodationController.ts",  
-    "controllers/LoginController.ts", "controllers/BookingController.ts", 
-    "controllers/LoginController.ts", "routes/loginRouter.ts", 
-    "routes/accommodationRouter.ts", "routes/bookingRouter.ts", 
-    "routes/loginRouter.ts", "middleware/loginMiddleware.ts"]
+  "compilerOptions": {
+    "target": "esnext",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "paths": {
+      "*": ["./types/*"]
+    }
+  },
+  "files": [
+    "src/main.tsx",
+    "server.ts",
+    "types/extend-session.ts",
+    "types/css.d.ts",
+    "db.ts",
+    "dao/AccommodationDao.ts",
+    "dao/UserDao.ts",
+    "dao/BookingDao.ts",
+    "controllers/AccommodationController.ts",
+    "controllers/LoginController.ts",
+    "controllers/BookingController.ts",
+    "controllers/LoginController.ts",
+    "routes/loginRouter.ts",
+    "routes/accommodationRouter.ts",
+    "routes/bookingRouter.ts",
+    "routes/loginRouter.ts",
+    "middleware/loginMiddleware.ts"
+  ]
 }
